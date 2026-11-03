@@ -1,0 +1,361 @@
+/* ===== Переменные ===== */
+:root {
+  --bg: #f3f4f8;
+  --card: #ffffff;
+  --text: #1f2330;
+  --muted: #8a8fa3;
+  --border: #e6e8ef;
+  --accent: #5b5bd6;
+  --accent-hover: #4a4ac4;
+  --accent-soft: #ececfb;
+  --danger: #e5484d;
+  --radius: 14px;
+  --shadow: 0 10px 30px rgba(31, 35, 48, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 60px 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== Карточка приложения ===== */
+.app {
+  width: 100%;
+  max-width: 560px;
+  background: var(--card);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  padding: 32px;
+}
+
+.app__header {
+  margin-bottom: 24px;
+}
+
+.app__title {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.app__date {
+  color: var(--muted);
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+/* ===== Форма добавления ===== */
+.add-form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.add-form__input {
+  flex: 1;
+  min-width: 0;
+  font: inherit;
+  font-size: 15px;
+  padding: 13px 16px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.add-form__input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-soft);
+}
+
+.add-form__input.is-error {
+  border-color: var(--danger);
+  animation: shake 0.3s;
+}
+
+.add-form__btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font: inherit;
+  font-weight: 600;
+  font-size: 15px;
+  color: #fff;
+  background: var(--accent);
+  border: none;
+  border-radius: var(--radius);
+  padding: 0 20px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.add-form__btn:hover {
+  background: var(--accent-hover);
+}
+
+.add-form__btn:active {
+  transform: scale(0.97);
+}
+
+.add-form__plus {
+  font-size: 20px;
+  line-height: 1;
+}
+
+/* ===== Фильтры ===== */
+.filters {
+  display: flex;
+  gap: 6px;
+  background: var(--bg);
+  padding: 4px;
+  border-radius: 12px;
+  margin-bottom: 16px;
+}
+
+.filters__btn {
+  flex: 1;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--muted);
+  background: transparent;
+  border: none;
+  border-radius: 9px;
+  padding: 8px 0;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.filters__btn:hover {
+  color: var(--text);
+}
+
+.filters__btn.is-active {
+  background: var(--card);
+  color: var(--text);
+  box-shadow: 0 1px 4px rgba(31, 35, 48, 0.08);
+}
+
+/* ===== Список задач ===== */
+.task-list {
+  list-style: none;
+}
+
+.task {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 8px;
+  border-bottom: 1px solid var(--border);
+  animation: fadeIn 0.25s ease;
+}
+
+.task:last-child {
+  border-bottom: none;
+}
+
+.task.is-removing {
+  animation: fadeOut 0.2s ease forwards;
+}
+
+/* Кастомный чекбокс */
+.task__check {
+  appearance: none;
+  -webkit-appearance: none;
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--border);
+  border-radius: 50%;
+  cursor: pointer;
+  display: grid;
+  place-content: center;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.task__check:hover {
+  border-color: var(--accent);
+}
+
+.task__check::after {
+  content: "";
+  width: 6px;
+  height: 11px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg) scale(0);
+  margin-top: -2px;
+  transition: transform 0.15s;
+}
+
+.task__check:checked {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.task__check:checked::after {
+  transform: rotate(45deg) scale(1);
+}
+
+.task__check:focus-visible {
+  outline: 3px solid var(--accent-soft);
+  outline-offset: 2px;
+}
+
+.task__text {
+  flex: 1;
+  font-size: 15px;
+  line-height: 1.4;
+  word-break: break-word;
+  cursor: text;
+  transition: color 0.2s;
+}
+
+.task.is-done .task__text {
+  color: var(--muted);
+  text-decoration: line-through;
+}
+
+.task__edit {
+  flex: 1;
+  font: inherit;
+  font-size: 15px;
+  padding: 6px 10px;
+  border: 1.5px solid var(--accent);
+  border-radius: 8px;
+  outline: none;
+}
+
+.task__delete {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  border-radius: 8px;
+  font-size: 20px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s, background 0.2s, color 0.2s;
+}
+
+.task:hover .task__delete,
+.task__delete:focus-visible {
+  opacity: 1;
+}
+
+.task__delete:hover {
+  background: #fdecec;
+  color: var(--danger);
+}
+
+/* ===== Пустое состояние ===== */
+.empty {
+  text-align: center;
+  padding: 40px 0 24px;
+  color: var(--muted);
+}
+
+.empty__icon {
+  font-size: 40px;
+  margin-bottom: 8px;
+}
+
+/* ===== Нижняя панель ===== */
+.app__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.link-btn {
+  font: inherit;
+  font-size: 14px;
+  color: var(--muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.link-btn:hover:not(:disabled) {
+  color: var(--danger);
+}
+
+.link-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.hint {
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 20px;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* ===== Анимации ===== */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeOut {
+  to { opacity: 0; transform: translateX(20px); }
+}
+
+@keyframes shake {
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+
+/* ===== Адаптив ===== */
+@media (max-width: 480px) {
+  body {
+    padding: 20px 12px;
+  }
+
+  .app {
+    padding: 22px 18px;
+  }
+
+  .app__title {
+    font-size: 24px;
+  }
+
+  .add-form__label {
+    display: none;
+  }
+
+  .add-form__btn {
+    padding: 0 16px;
+  }
+
+  /* На телефоне нет hover — кнопка удаления видна всегда */
+  .task__delete {
+    opacity: 1;
+  }
+}
